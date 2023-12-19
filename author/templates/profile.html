@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container py-3">
+  <a class="btn btn-primary" href="{% url 'edit_profile' %}">Edit profile</a>
+</div>
+
+<div class="container">
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    {% if orders%}
+    {% for order in orders%}
+    <div class="col">
+      <div class="card h-100">
+        <img src="{{order.car_image.url}}" class="card-img-top" alt="{{order.car_name}}">
+        
+        <div class="card-body">
+          <small>{{order.purchase_date}}</small>
+          <h5 class="card-title">Name: {{order.car_name}}</h5>
+          <p class="card-text">Price: {{order.car_price}}</p>
+          <p class="card-text">Brand: {{order.car_brand}}</p>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <h1 class="text-center text-primary">You did not order yet</h1>
+    {% endif %}
+  
+  </div>
+</div>
+{% endblock content %}

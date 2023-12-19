@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="container py-5">
+  <div class="row g-2">
+    <div class="col-6 d-flex align-items-center">
+      <div class="">
+        <h1>Welcome to our CarSaleWebsite company</h1>
+        <p>Explore a wide range of top-quality cars and find your dream vehicle with ease.</p>
+        <p>Discover our handpicked selection of featured cars. Each model is meticulously chosen for its performance, style, and reliability. Browse through the finest collection and choose a car that suits your preferences.</p>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="p-3 border bg-light">
+        <img src="{% static "images/home_img.jpg" %}" class="img-fluid" alt="">
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container py-3">
+  <ul class="nav nav-pills">
+    {% if brands %}
+    <li class="nav-item">
+      <a class="nav-link" aria-current="page" href="{%url 'homepage'%}">All</a>
+    </li>
+    {% endif %}
+    {% for brand in brands%}
+    <li class="nav-item">
+      <a class="nav-link" href="{% url 'category_wise_car' brand.id %}">{{brand.name}}</a>
+    </li>
+    {% endfor %}
+  </ul>
+  <h4>Total car found: {{cars|length}}</h4>
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for car in cars%}
+    <div class="col">
+      <div class="card h-100">
+        <img src="{{car.image.url}}" class="card-img-top" alt="{{car.name}}">
+
+        <div class="card-body">
+          <h5 class="card-title">Name: {{car.name}}</h5>
+          <p class="card-text">Price: ${{car.price}}</p>
+          <p class="card-text">Brand: {{car.brand}}</p>
+          <a href="{% url 'car_details' car.id%}" class="btn btn-primary">View Details</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock content %}
+
+</div>
